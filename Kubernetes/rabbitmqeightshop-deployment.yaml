@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Kompose\kompose.exe convert -v
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: rabbitmqeightshop
+  name: rabbitmqeightshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: rabbitmqeightshop
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Kompose\kompose.exe convert -v
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: rabbitmqeightshop
+    spec:
+      containers:
+        - env:
+            - name: RABBITMQ_DEFAULT_PASS
+              value: admin
+            - name: RABBITMQ_DEFAULT_USER
+              value: admin
+          image: rabbitmq:3-management
+          name: rabbitmqeightshop
+          ports:
+            - containerPort: 5672
+            - containerPort: 5673
+            - containerPort: 15672
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/rabbitmq/
+              name: rabbitmqeightshop-claim0
+      restartPolicy: Always
+      volumes:
+        - name: rabbitmqeightshop-claim0
+          persistentVolumeClaim:
+            claimName: rabbitmqeightshop-claim0
+status: {}

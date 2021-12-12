@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: C:\Kompose\kompose.exe convert -v
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: purchaseservice
+  name: purchaseservice
+spec:
+  ports:
+    - name: "9088"
+      port: 9088
+      targetPort: 9088
+  selector:
+    io.kompose.service: purchaseservice
+status:
+  loadBalancer: {}
